@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog">
+		
+	<resultMap id="BlogVo" type="com.jblog.vo.BlogVo">
+		<result column="user_name" property="userName" /> 
+		<result column="blog_title" property="blogTitle" /> 
+		<result column="logo_file" property="logoFile" /> 
+	</resultMap>
+	
+		
+	<!-- 블로그 생성 -->
+	<insert id="blogCreate" parameterType="com.jblog.vo.BlogVo">
+		INSERT INTO blog
+		VALUES (#{id},
+				#{blogTitle},
+				#{logoFile})
+	</insert>
+	
+	
+	<!-- 블로그 메인 정보 -->
+	<select id="blogInfo" parameterType="String" resultMap="BlogVo">
+		SELECT  b.id,
+				user_name,
+				blog_title,
+				logo_file
+		FROM blog b, users u
+		WHERE b.id = u.id
+		AND b.id = #{id}
+	</select>
+	
+	
+	<!-- 블로그 기본 정보 -->
+	<select id="blogBasic" parameterType="String" resultMap="BlogVo">
+		SELECT  id,
+				blog_title,
+				logo_file
+		FROM blog
+		WHERE id = #{id}
+	</select>
+	
+	
+	<!-- 블로그 타이틀 -->
+	<select id="blogTitle" parameterType="String" resultMap="BlogVo">
+		SELECT  id,
+			 	blog_title
+		FROM blog
+		WHERE id = #{id}
+	</select>
+	
+	
+	<!-- 블로그 기본정보 업데이트 -->
+	<update id="basicUpdate" parameterType="com.jblog.vo.BlogVo">
+		UPDATE blog
+		SET blog_title = #{blogTitle}
+			<if test="logoFile != null and logoFile !=''">
+				, logo_file = #{logoFile}
+			</if>
+		WHERE id = #{id}
+	</update>
+	
+
+</mapper>

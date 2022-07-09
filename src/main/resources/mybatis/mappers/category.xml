@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+
+	<resultMap id="CateVo" type="com.jblog.vo.CateVo">
+		<result column="cate_no" property="cateNo" /> 
+		<result column="cate_name" property="cateName" /> 
+		<result column="reg_date" property="regDate" /> 
+		<result column="description" property="desc" /> 
+		<result column="count_post" property="countPost" /> 
+	</resultMap>
+	
+
+	<!-- 카테고리 정보 -->
+	<!-- 카테고리나 폴더 같은건 새로만들면 밑으로 내려가던 것 같은데 -->
+	<select id="cateList" parameterType="String" resultMap="CateVo">
+		SELECT  c.cate_no,
+				cate_name,
+				NVL(count_post, 0) count_post,
+       			description
+		FROM (SELECT cate_name,
+					 cate_no,
+					 description
+			  FROM category
+			  WHERE id = #{id}) c
+		LEFT OUTER JOIN (SELECT COUNT(post_no) count_post,
+								cate_no
+						 FROM post
+						 GROUP BY cate_no) p
+		ON c.cate_no = p.cate_no
+		ORDER BY c.cate_no ASC
+	</select>
+	
+	
+	<!-- 
+	 order : 순서 [ AFTER | BEFORE ] - (default: after)
+     *AFTER : insert 구문 실행 후 selectKey 구문 실행
+     *BEFORE : selectKey 구문 실행 후 리턴 값을 keyProperty에 셋팅한 뒤 insert 구문 실행
+      -->
+	<!-- 카테고리 추가 -->
+	<insert id="cateInsert" parameterType="com.jblog.vo.CateVo">
+		<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">
+			SELECT seq_category_no.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO category
+		VALUES (#{cateNo},
+				#{id},
+				#{cateName},
+				#{desc},
+				SYSDATE)
+	</insert>
+	
+	
+	<!-- 카테고리 정보(1개) -->
+	<select id="selectOne" parameterType="int" resultMap="CateVo">
+		SELECT  cate_no,
+				cate_name,
+				description
+		FROM category
+		WHERE cate_no = #{cateNo}
+	</select>
+	
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="cateDelete" parameterType="com.jblog.vo.CateVo">
+		DELETE FROM category
+		WHERE id = #{id}
+		AND cate_no = #{cateNo}
+	</delete>
+	
+	
+	<!-- 카테고리 리스트(index) -->
+	<select id="cateIndex" parameterType="String" resultMap="CateVo">
+		SELECT  cate_no,
+				cate_name
+		FROM category
+		WHERE id = #{id}
+		ORDER BY cate_no DESC
+	</select>
+
+
+</mapper>
