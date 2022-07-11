@@ -26,7 +26,7 @@ public class BlogService {
 	
 	
 	/************************************** 블로그 메인 정보 ***************************************/
-	public Map<String, Object> blogMain(String id) {
+	public Map<String, Object> blogMain(String id, int cateNo, int postNo) {
 		System.out.println("BlogService > blogMain()");
 		
 		Map<String, Object> map = new HashMap<>();
@@ -38,40 +38,24 @@ public class BlogService {
 			List<CateVo> cateIndex = cateDao.cateIndex(id); 
 			map.put("cateIndex", cateIndex);
 			
-			int cateNo = cateIndex.get(0).getCateNo();
+			if(cateNo == 0) {
+				cateNo = cateIndex.get(0).getCateNo();
+			}
 			List<PostVo> postList = postDao.postList(cateNo);
 			map.put("postList", postList);
 			
-			PostVo postVo = postDao.postLast(id);
+			PostVo postVo = new PostVo();
+			if(postNo == 0) {
+				postVo = postDao.postLast(id);
+			}else {
+				postVo = postDao.postRead(postNo);
+			}
 			map.put("postVo", postVo);
 		}
 		
 		return map;
 	}
 	
-	
-	/************************************** 카테고리/글 조회 ***************************************/
-	public Map<String, Object> blogRead(String id, int cateNo, int postNo) {
-		System.out.println("BlogService > blogRead()");
-		
-		Map<String, Object> map = new HashMap<>();
-		
-		BlogVo blogVo = blogDao.blogInfo(id);
-		map.put("blogVo", blogVo);
-		
-		if(blogVo != null) {
-			List<CateVo> cateIndex = cateDao.cateIndex(id); 
-			map.put("cateIndex", cateIndex);
-			
-			List<PostVo> postList = postDao.postList(cateNo);
-			map.put("postList", postList);
-			
-			PostVo postVo = postDao.postRead(postNo);
-			map.put("postVo", postVo);
-		}
-		
-		return map;
-	}
 	
 	
 }

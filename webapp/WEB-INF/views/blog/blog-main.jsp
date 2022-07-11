@@ -7,7 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>JBlog</title>
+<!-- css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<!-- js -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 </head>
 
@@ -37,7 +39,7 @@
 					<ul id="cateList" class="text-left">
 						<c:forEach items="${cateIndex}" var="cateVo">
 							<li>
-								<a href="${pageContext.request.contextPath}/${authUser.id}/${cateVo.cateNo}/${postVo.postNo}">
+								<a href="${pageContext.request.contextPath}/${blogVo.id}?c=${cateVo.cateNo}&p=${postVo.postNo}">
 									${cateVo.cateName}
 								</a>
 							</li>
@@ -71,7 +73,15 @@
 						</div>
 					</c:otherwise>
 				</c:choose>
-				
+				<div id="cmtBox" class="clearfix">
+					<c:if test="${!empty authUser}">
+						<fieldset>
+							<div>${authUser.userName}</div>
+							<div><input type="text" name="cmtContent" value=""></div>
+							<div><button id="btnAddCmt" class="btn_l" type="submit" >저장</button></div>
+						</fieldset>
+					</c:if>
+				</div>
 				<div id="list">
 					<div id="listTitle" class="text-left"><strong>카테고리의 글</strong></div>
 					<table>
@@ -83,7 +93,7 @@
 						<c:forEach items="${postList}" var="post">
 							<tr>
 								<td class="text-left">
-									<a href="${pageContext.request.contextPath}/${authUser.id}/${post.cateNo}/${post.postNo}">
+									<a href="${pageContext.request.contextPath}/${blogVo.id}?c=${post.cateNo}&p=${post.postNo}">
 										${post.postTitle}
 									</a>
 								</td>
@@ -109,4 +119,11 @@
 	</div>
 	<!-- //wrap -->
 </body>
+
+<script type="text/javascript">
+
+
+
+</script>
+
 </html>
