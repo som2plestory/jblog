@@ -69,19 +69,21 @@
 									<div id="postDate" class="text-left"><strong></strong></div>
 									<div id="postNick"></div>
 						</div>
-						<div id="post" >
-						</div>
 					</c:otherwise>
 				</c:choose>
+				
 				<div id="cmtBox" class="clearfix">
-					<c:if test="${!empty authUser}">
+					<c:if test="${!empty authUser && !empty postVo}">
 						<fieldset>
-							<div>${authUser.userName}</div>
-							<div><input type="text" name="cmtContent" value=""></div>
-							<div><button id="btnAddCmt" class="btn_l" type="submit" >저장</button></div>
+							<div id="cmtName" class="text-center">${authUser.userName}</div>
+							<div id="cmtContent" class="text-left"><input type="text" name="cmtContent" value=""></div>
+							<div id="cmtAdd"><button id="btnAddCmt" type="submit" >등록</button></div>
 						</fieldset>
 					</c:if>
+					<div id="cmtList">
+					</div>
 				</div>
+				
 				<div id="list">
 					<div id="listTitle" class="text-left"><strong>카테고리의 글</strong></div>
 					<table>
@@ -121,6 +123,41 @@
 </body>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	fetchCmtList()
+})
+
+
+function fetchCmtList(){
+	
+	if ("${empty postVo}"){
+		console.log("포스트 댓글 미존재")
+		return false
+	}
+	
+	var postNo = ${postVo.postNo}
+	console.log(postNo)
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/blog/cmtList",		
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		
+		success : function(cateList){
+				
+			for(var i=0; i<cateList.length; i++){
+				render(cateList[i])	
+			}
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+			
+		}
+	})
+}
 
 
 

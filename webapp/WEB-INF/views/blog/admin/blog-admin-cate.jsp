@@ -91,9 +91,10 @@ $(document).ready(function(){
 })
 
 //일련번호(view)
-var n = 0
+var n
 
 function fetchList(){
+	n = 0
 	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/admin/category/cateList",		
@@ -207,7 +208,10 @@ $("#cateList").on("click", ".btnCateDel", function(){
 			console.log(result)
 			
 			if(result == "success"){
-				$("#t"+no).remove()
+				for(var i=1; i<=no; i++){
+					$("#t"+i).remove()
+				}
+				fetchList()
 			}
 		},
 		error : function(XHR, status, error) {
