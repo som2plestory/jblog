@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.jblog.dao.BlogDao;
 import com.jblog.dao.CateDao;
+import com.jblog.dao.CmtDao;
 import com.jblog.dao.PostDao;
 import com.jblog.vo.BlogVo;
 import com.jblog.vo.CateVo;
+import com.jblog.vo.CmtVo;
 import com.jblog.vo.PostVo;
 
 @Service
@@ -23,10 +25,12 @@ public class BlogService {
 	private CateDao cateDao;
 	@Autowired
 	private PostDao postDao;
+	@Autowired
+	private CmtDao cmtDao;
 	
 	
 	/************************************** 블로그 메인 정보 ***************************************/
-	public Map<String, Object> blogMain(String id, int cateNo, int postNo) {
+	public Map<String, Object> blogMain(String id, int cateNo, int postNo)	{
 		System.out.println("BlogService > blogMain()");
 		
 		Map<String, Object> map = new HashMap<>();
@@ -54,6 +58,16 @@ public class BlogService {
 		}
 		
 		return map;
+	}
+	
+	
+	/************************************** 코멘트 가져오기 ***************************************/
+	public List<CmtVo> cmtList(int postNo)	{
+		System.out.println("BlogService > cmtList()");
+		
+		List<CmtVo> cmtList = cmtDao.cmtList(postNo);
+		
+		return cmtList;
 	}
 	
 	

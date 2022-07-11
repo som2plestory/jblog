@@ -179,7 +179,7 @@ div#footer		{ color:#666 }
 #post_area #post					{padding: 20px 10px 20px 10px; border-bottom: 1px solid #808080; text-align: left;}
 
 
-/* 개인블로그 오른쪽영역(코멘트리스트) */
+/* 개인블로그 오른쪽영역(코멘트작성) */
 #post_area #cmtBox									{width: 790px; padding: 20px 0px 20px 0px; border-bottom: 3px solid #808080;}
 #post_area #cmtBox fieldset							{padding: 5px 5px 0px 0px;}
 #post_area #cmtBox #cmtName							{width: 90px; height: 25.5px; float: left; padding: 8.5px 0px 0px 0px; font-size: 13px;}
@@ -187,6 +187,10 @@ div#footer		{ color:#666 }
 #post_area #cmtBox #cmtContent input[type="text"]	{width: 100%; margin: 0px 0px 5px 0px; height: 30px; font-size: 13px;}
 #post_area #cmtBox #cmtAdd							{width: 70px; float: right;}
 #post_area #cmtBox #cmtAdd #btnAddCmt				{width: 95%; height: 34px; text-align: center;}
+
+/* 개인블로그 오른쪽영역(코멘트리스트) */
+/* #post_area #cmtBox #cmlList {padding: 5px 5px 0px 0px;}
+#post_area #  */
 
 
 /* 개인블로그 오른쪽영역(글리스트) */

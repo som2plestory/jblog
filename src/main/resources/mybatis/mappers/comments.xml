@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="comments">
+	
+	<resultMap id="CmtVo" type="com.jblog.vo.CmtVo">
+		<result column="cmt_no" property="cmtNo" /> 
+		<result column="post_no" property="postNo" /> 
+		<result column="id" property="id" /> 
+		<result column="user_no" property="userNo" /> 
+		<result column="user_name" property="userName" /> 
+		<result column="cmt_content" property="cmtContent" /> 
+		<result column="reg_date" property="regDate" /> 
+	</resultMap>
+	
+	
+	<select id="cmtList" parameterType="int" resultMap="CmtVo">
+		SELECT  cmt_no,
+				id,
+				user_name,
+				cmt_content,
+				TO_CHAR(reg_date,'YY-MM-DD') reg_date
+		FROM comments c, users u
+		WHERE c.user_no = u.user_no
+		AND post_no = #{postNo}
+		ORDER BY cmt_no ASC
+	</select>
 
 
 </mapper>

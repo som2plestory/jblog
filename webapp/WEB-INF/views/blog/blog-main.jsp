@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 
 <!DOCTYPE html>
 <html>
@@ -123,6 +122,7 @@
 </body>
 
 <script type="text/javascript">
+var n = 0
 
 $(document).ready(function(){
 	fetchCmtList()
@@ -130,9 +130,50 @@ $(document).ready(function(){
 
 
 function fetchCmtList(){
+
+	var post = $("#postTitle").text()
+	if (post == "" || post == null){
+		console.log("포스트 댓글 미존재")
+		return false
+	}
 	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/${postVo.postNo}/cmtList",		
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		
+		success : function(cmtList){
+				
+			for(var i=0; i<cmtList.length; i++){
+				render(cmtList[i])	
+			}
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	})
 }
 
+function render(cmtVo){
+	console.log("render()")
+	n = n+1
+	
+	var str = ''
+	str += '<div id="c'+'n">'
+	str += '	<div class="cmtName" clss="text-center">'+cmtVo.userName+'</div>'
+	str += '	<div class="cmtCnt" class="text-left">'+cmtVo.cmtContent+'</div>'
+	str += '	<div class="cmtDate" class="text-right">'+cmtVo.regDate+'</div>'
+	str += '	<div class="text-center">'
+	str += '		<c:if test="${authUser.id == cmtVo.id}">'
+	str += '			<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">'
+	str += '		</c:if>'
+	str += '	</div>'
+	str += '</div>'
+	
+	$("#cmtList").prepend(str)
+}
 
 
 </script>
