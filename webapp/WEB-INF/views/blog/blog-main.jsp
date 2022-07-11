@@ -131,32 +131,6 @@ $(document).ready(function(){
 
 function fetchCmtList(){
 	
-	if ("${empty postVo}"){
-		console.log("포스트 댓글 미존재")
-		return false
-	}
-	
-	var postNo = ${postVo.postNo}
-	console.log(postNo)
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/blog/cmtList",		
-		type : "post",
-		contentType : "application/json",
-		dataType : "json",
-		
-		success : function(cateList){
-				
-			for(var i=0; i<cateList.length; i++){
-				render(cateList[i])	
-			}
-			
-		},
-		error : function(XHR, status, error) {
-			console.error(status + " : " + error);
-			
-		}
-	})
 }
 
 
