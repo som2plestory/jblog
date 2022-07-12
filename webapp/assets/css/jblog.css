@@ -186,7 +186,7 @@ div#footer		{ color:#666 }
 #post_area #cmtBox #cmtContent						{width: 610px; float: left;}
 #post_area #cmtBox #cmtContent input[type="text"]	{width: 100%; margin: 5px 0px; height: 30px; font-size: 13px;}
 #post_area #cmtBox #cmtAdd							{width: 70px; margin: 5px 0px; float: right;}
-#post_area #cmtBox #cmtAdd #btnAddCmt				{width: 95%; height: 34px; text-align: center;}
+#post_area #cmtBox #cmtAdd #btnAddCmt				{width: 95%; height: 34px; text-align: center; cursor: pointer;}
 
 /* 개인블로그 오른쪽영역(코멘트 리스트) */
 #post_area #cmtBox #cmlList {padding: 10px 5px 0px 0px;}

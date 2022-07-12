@@ -94,9 +94,13 @@ public class BlogService {
 	public CmtVo cmtInsert(CmtVo cmtVo) {
 		System.out.println("BlogService > cmtInsert()");
 		
+		int N = cmtVo.getUserNo();
+		System.out.println("N: "+N);
+		
 		cmtDao.cmtInsert(cmtVo.getUserNo());
 		
 		int cmtNo = cmtVo.getCmtNo();
+		System.out.println("cmtNo"+cmtNo);
 		CmtVo cmtVo1 = cmtDao.selectOne(cmtNo);
 		
 		return cmtVo1;

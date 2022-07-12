@@ -29,7 +29,7 @@ public class CmtDao {
 	public void cmtInsert(int cmtNo) {
 		System.out.println("CmtDao > cmtInsert()");
 		
-		sqlSession.insert("comments.cmtDelete", cmtNo);
+		sqlSession.insert("comments.cmtInsert", cmtNo);
 	}
 	
 	

@@ -208,9 +208,10 @@ $("#cateList").on("click", ".btnCateDel", function(){
 			console.log(result)
 			
 			if(result == "success"){
-				for(var i=1; i<=no; i++){
+				for(var i=1; i<=n; i++){
 					$("#t"+i).remove()
 				}
+				
 				fetchList()
 			}
 		},
