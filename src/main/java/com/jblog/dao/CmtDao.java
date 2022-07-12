@@ -26,10 +26,10 @@ public class CmtDao {
 
 	
 	/************************************** 코멘트 등록 ***************************************/
-	public void cmtInsert(int cmtNo) {
+	public void cmtInsert(CmtVo cmtVo) {
 		System.out.println("CmtDao > cmtInsert()");
 		
-		sqlSession.insert("comments.cmtInsert", cmtNo);
+		sqlSession.insert("comments.cmtInsert", cmtVo);
 	}
 	
 	

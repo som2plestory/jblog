@@ -97,7 +97,7 @@ public class BlogService {
 		int N = cmtVo.getUserNo();
 		System.out.println("N: "+N);
 		
-		cmtDao.cmtInsert(cmtVo.getUserNo());
+		cmtDao.cmtInsert(cmtVo);
 		
 		int cmtNo = cmtVo.getCmtNo();
 		System.out.println("cmtNo"+cmtNo);
