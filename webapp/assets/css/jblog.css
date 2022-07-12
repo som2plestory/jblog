@@ -128,7 +128,7 @@ div#footer		{ color:#666 }
 /* 회원가입 성공 */
 
 /* 로그인 */
-#center-content #loginForm										{ width:300px; margin: 0px auto; padding: 20px; border: 1px solid #B7B7B7; }
+#center-content #loginForm			{ width:300px; margin: 0px auto; padding: 20px; border: 1px solid #B7B7B7; }
 #center-content #loginForm #textId {width: 160px; height: 30px; }
 #center-content #loginForm #textPassword {width: 160px; height: 30px; }
 #center-content #loginForm #tdMsg {padding-top: 20px; text-align: center; }
@@ -180,20 +180,24 @@ div#footer		{ color:#666 }
 
 
 /* 개인블로그 오른쪽영역(코멘트작성) */
-#post_area #cmtBox									{width: 790px; padding: 20px 0px 20px 0px; border-bottom: 3px solid #808080;}
-#post_area #cmtBox fieldset							{padding: 5px 5px 0px 0px;}
-#post_area #cmtBox #cmtName							{width: 90px; height: 25.5px; float: left; padding: 8.5px 0px 0px 0px; font-size: 13px;}
+#post_area #cmtBox									{width: 790px; border-bottom: 3px solid #808080;}
+#post_area #cmtBox fieldset							{margin: 20px 0px 0px 0px; padding: 5px 5px 5px 0px;}
+#post_area #cmtBox #cmtName							{width: 90px; margin: 5px 0px; height: 25.5px; float: left; padding: 8.5px 0px 0px 0px; font-size: 13px;}
 #post_area #cmtBox #cmtContent						{width: 610px; float: left;}
-#post_area #cmtBox #cmtContent input[type="text"]	{width: 100%; margin: 0px 0px 5px 0px; height: 30px; font-size: 13px;}
-#post_area #cmtBox #cmtAdd							{width: 70px; float: right;}
+#post_area #cmtBox #cmtContent input[type="text"]	{width: 100%; margin: 5px 0px; height: 30px; font-size: 13px;}
+#post_area #cmtBox #cmtAdd							{width: 70px; margin: 5px 0px; float: right;}
 #post_area #cmtBox #cmtAdd #btnAddCmt				{width: 95%; height: 34px; text-align: center;}
 
-/* 개인블로그 오른쪽영역(코멘트리스트) */
-/* #post_area #cmtBox #cmlList {padding: 5px 5px 0px 0px;}
-#post_area #  */
+/* 개인블로그 오른쪽영역(코멘트 리스트) */
+#post_area #cmtBox #cmlList {padding: 10px 5px 0px 0px;}
+#post_area #cmtBox #cmlList .cmtLine {width: 790px; height: 24px; padding: 10px 0px; border-top: 1px solid #BDBDBD;}
+#post_area #cmtBox #cmtList .cmtUser {display: inline-block; width: 90px; height: 21px; text-align: center; font-size: 13px;} 
+#post_area #cmtBox #cmtList .cmtCnt	{display: inline-block; width: 590px; height: 21px; font-size: 13px;}
+#post_area #cmtBox #cmtList .cmtDate{display: inline-block; width: 65px; height: 21px; font-size: 13px;}
+#post_area #cmtBox #cmtList .cmtDel {display: inline-block; width: 15px; padding: 1px 0px 0px 0px; text-align: center; cursor: pointer;}
 
 
-/* 개인블로그 오른쪽영역(글리스트) */
+/* 개인블로그 오른쪽영역(글 리스트) */
 /* #post_area {} */
 #post_area #list #listTitle {width: 100%; margin: 50px 0px 5px 0px; padding: 0px 5px 3px 5px; border-bottom: 1px solid #808080; }
 #post_area #list table {width: 100%; border-collapse: collapse; font-size: 13px;}
@@ -219,6 +223,7 @@ div#footer		{ color:#666 }
 #admin-content #admin-cate-list {width: 100%; border-collapse: collapse; font-size: 15px;}
 #admin-content #admin-cate-list th {padding: 5px 5px 5px 5px; border: 1px solid #B7B7B7;  background-color: #DDDDDD;}
 #admin-content #admin-cate-list td {padding: 5px 5px 5px 5px; border: 1px solid #B7B7B7;  }
+#admin-content #admin-cate-list .btnCateDel {cursor: pointer;}
 
 #admin-content #admin-cate-add {width: 100%; border-collapse: collapse; font-size: 15px;}
 #admin-content #admin-cate-add [type='text'] {width: 600px; height: 30px; }

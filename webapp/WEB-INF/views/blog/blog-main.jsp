@@ -64,22 +64,23 @@
 				
 					<c:otherwise> 
 						<div id="postBox" class="clearfix">
-									<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
-									<div id="postDate" class="text-left"><strong></strong></div>
-									<div id="postNick"></div>
+							<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
+							<div id="postDate" class="text-left"><strong></strong></div>
+							<div id="postNick"></div>
 						</div>
 					</c:otherwise>
 				</c:choose>
 				
-				<div id="cmtBox" class="clearfix">
+				<div id="cmtBox">
 					<c:if test="${!empty authUser && !empty postVo}">
 						<fieldset>
+							<input type="hidden" name="userNo" value="${authUser.userNo}"> 
 							<div id="cmtName" class="text-center">${authUser.userName}</div>
 							<div id="cmtContent" class="text-left"><input type="text" name="cmtContent" value=""></div>
-							<div id="cmtAdd"><button id="btnAddCmt" type="submit" >등록</button></div>
+							<div id="cmtAdd"><button id="btnAddCmt" type="submit" data-no="${postVo.postNo}">등록</button></div>
 						</fieldset>
 					</c:if>
-					<div id="cmtList">
+					<div id="cmtList" class="text-left">
 					</div>
 				</div>
 				
@@ -123,6 +124,7 @@
 
 <script type="text/javascript">
 var n = 0
+var userNo = $("[name='userNo']").val()
 
 $(document).ready(function(){
 	fetchCmtList()
@@ -132,6 +134,7 @@ $(document).ready(function(){
 function fetchCmtList(){
 
 	var post = $("#postTitle").text()
+	
 	if (post == "" || post == null){
 		console.log("포스트 댓글 미존재")
 		return false
@@ -161,19 +164,92 @@ function render(cmtVo){
 	n = n+1
 	
 	var str = ''
-	str += '<div id="c'+'n">'
-	str += '	<div class="cmtName" clss="text-center">'+cmtVo.userName+'</div>'
-	str += '	<div class="cmtCnt" class="text-left">'+cmtVo.cmtContent+'</div>'
-	str += '	<div class="cmtDate" class="text-right">'+cmtVo.regDate+'</div>'
-	str += '	<div class="text-center">'
-	str += '		<c:if test="${authUser.id == cmtVo.id}">'
-	str += '			<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">'
-	str += '		</c:if>'
-	str += '	</div>'
+	str += '<div id="c'+n+'" class="cmtLine" style="height: 24px; padding: 10px 0px; border-top: 1px solid #BDBDBD;">'
+	str += '	<span class="cmtUser">'+cmtVo.userName+'</span>'
+	str += '	<span class="cmtCnt" class="text-left">'+cmtVo.cmtContent+'</span>'
+	str += '	<span class="cmtDate" class="text-right">'+cmtVo.regDate+'</span>'
+	str += '	<span class="cmtDel" class="text-center">'
+	
+	if(userNo == cmtVo.userNo ){
+		str += '		<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg"'
+		str += '				data-n="'+n+'" data-no="'+cmtVo.cmtNo+'">'
+	}
+	
+	str += '	</span>'
 	str += '</div>'
 	
 	$("#cmtList").prepend(str)
 }
+
+
+$("#cmtList").on("click", ".btnCmtDel",function(){
+	console.log("코멘트 삭제 클릭")
+	
+	var $this = $(this)
+	var cmtNo = $this.data("no")
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/comments/delete",		
+		type : "post",
+		contentType : "application/json",
+		data : JSON.stringify(cmtNo),
+		
+		dataType : "json",
+		success : function(result){
+			console.log(result)
+			
+			if(result == "success"){
+				$("#c"+n).remove()
+			}
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	})
+})
+
+
+$("#btnAddCmt").on("click", function(){
+	console.log("코멘트 등록 클릭")
+	
+	var cmtContent = $("[name = 'cmtContent']").val()
+	
+	if(cmtContent == '' || cmtContent == null){
+		alert("내용을 입력해주세요.")
+		return false
+	}
+	
+	var $this = $(this)
+	var postNo = $this.data("no")
+	var userNo = $("[name = 'userNo']").val()
+	
+	var cmtVo = {
+		postNo : postNo,
+		userNo : userNo,
+		cmtContent : cmtContent
+	}
+	console.log(cmtVo)
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/comments/insert",
+		type : "post",
+		contentType : "application/json",
+		data : JSON.stringify(cmtVo),
+		
+		dataType : "json",
+		success : function(cmtVo1){
+			render(cmtVo1)
+			$("[name = 'cmtContent']").val("")
+		
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+			
+		} 
+	})
+	
+})
 
 
 </script>

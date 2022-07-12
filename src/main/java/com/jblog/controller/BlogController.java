@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,6 +57,29 @@ public class BlogController {
 		return cmtList;
 	}
 	
+	
+	/************************************** 코멘트 삭제 ***************************************/
+	@ResponseBody
+	@RequestMapping("/comments/delete")
+	public String cmtDelete(@RequestBody int cmtNo) {
+		System.out.println("BlogController > cmtDelete()");
+		
+		String result = blogService.cmtDelete(cmtNo);
+		
+		return result;
+	}
+	
+	
+	/************************************** 코멘트 작성 ***************************************/
+	@ResponseBody
+	@RequestMapping("/comments/insert")
+	public CmtVo cmtInsert(@RequestBody CmtVo cmtVo) {
+		System.out.println("BlogController > cmtInsert()");
+		
+		CmtVo cmtVo1 = blogService.cmtInsert(cmtVo);
+		
+		return cmtVo1;
+	}
 	 
 
 

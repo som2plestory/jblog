@@ -4,7 +4,6 @@ public class CmtVo {
 	
 	private int cmtNo;
 	private int postNo;
-	private String id;
 	private int userNo;
 	private String userName;
 	private String cmtContent;
@@ -20,11 +19,10 @@ public class CmtVo {
 		this.regDate = regDate;
 	}
 	
-	public CmtVo(int cmtNo, int postNo, String id, int userNo, String userName, String cmtContent, String regDate) {
+	public CmtVo(int cmtNo, int postNo, int userNo, String userName, String cmtContent, String regDate) {
 		super();
 		this.cmtNo = cmtNo;
 		this.postNo = postNo;
-		this.id = id;
 		this.userNo = userNo;
 		this.userName = userName;
 		this.cmtContent = cmtContent;
@@ -47,14 +45,6 @@ public class CmtVo {
 		this.postNo = postNo;
 	}
 	
-	public String id() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public int getUserNo() {
 		return userNo;
 	}
@@ -89,7 +79,7 @@ public class CmtVo {
 
 	@Override
 	public String toString() {
-		return "CmtVo [cmtNo=" + cmtNo + ", postNo=" + postNo + ", id=" + id + ", userNo=" + userNo + ", userName="
+		return "CmtVo [cmtNo=" + cmtNo + ", postNo=" + ", userNo=" + userNo + ", userName="
 				+ userName + ", cmtContent=" + cmtContent + ", regDate=" + regDate + "]";
 	}
 

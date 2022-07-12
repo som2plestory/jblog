@@ -14,9 +14,10 @@
 	</resultMap>
 	
 	
+	<!-- 코멘트 리스트 -->
 	<select id="cmtList" parameterType="int" resultMap="CmtVo">
 		SELECT  cmt_no,
-				id,
+				c.user_no,
 				user_name,
 				cmt_content,
 				TO_CHAR(reg_date,'YY-MM-DD') reg_date
@@ -25,6 +26,40 @@
 		AND post_no = #{postNo}
 		ORDER BY cmt_no ASC
 	</select>
+	
+	
+	<!-- 코멘트 등록 -->
+	<insert id="cmtInsert" parameterType="com.jblog.vo.CmtVo">
+		<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">
+			SELECT seq_comments_no.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO comments
+		VALUES (#{cmtNo},
+				#{postNo},
+				#{userNo},
+				#{cmtContent},
+				SYSDATE)
+	</insert>
+	
+	
+	<!-- 코멘트 정보(1개) -->
+	<select id="selectOne" parameterType="int" resultMap="CmtVo">
+		SELECT  cmt_no,
+				c.user_no,
+				user_name,
+				cmt_content,
+				TO_CHAR(reg_date,'YY-MM-DD') reg_date
+		FROM comments c, users u
+		WHERE c.user_no = u.user_no
+		AND cmt_no = #{cmtNo}
+	</select>
+	
+	
+	<!-- 코멘트 삭제 -->
+	<delete id="cmtDelete" parameterType="int">
+		DELETE FROM comments
+		WHERE cmt_no = #{cmtNo}
+	</delete>
 
 
 </mapper>

@@ -71,5 +71,34 @@ public class BlogService {
 	}
 	
 	
+	/*************************************** 코멘트 삭제 ****************************************/
+	public String cmtDelete(int cmtNo) {
+		System.out.println("BlogService > cmtDelete()");
+		
+		String result;
+		int count = cmtDao.cmtDelete(cmtNo);
+		
+		if(count == 1) {
+			result = "success";
+		
+		}else {
+			result = "fail";
+			
+		}
+		
+		return result;
+	}
 	
+	
+	/*************************************** 코멘트 작성 ****************************************/
+	public CmtVo cmtInsert(CmtVo cmtVo) {
+		System.out.println("BlogService > cmtInsert()");
+		
+		cmtDao.cmtInsert(cmtVo.getUserNo());
+		
+		int cmtNo = cmtVo.getCmtNo();
+		CmtVo cmtVo1 = cmtDao.selectOne(cmtNo);
+		
+		return cmtVo1;
+	}
 }

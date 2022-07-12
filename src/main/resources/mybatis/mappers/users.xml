@@ -3,6 +3,7 @@
 
 <mapper namespace="users">
 	<resultMap id="UserVo" type="com.jblog.vo.UserVo">
+		<result column="user_no" property="userNo" />
 		<result column="user_name" property="userName" />
 	</resultMap>
 	
@@ -27,7 +28,8 @@
 	
 	<!-- 로그인 정보 -->
 	<select id="login" parameterType="com.jblog.vo.UserVo" resultMap="UserVo">
-		select  id,
+		select  user_no,
+				id,
 				user_name
 		from users
 		where id = #{id}
