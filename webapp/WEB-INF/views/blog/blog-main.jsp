@@ -171,7 +171,7 @@ function render(cmtVo){
 	str += '	<span class="cmtDel" class="text-center">'
 	
 	if(userNo == cmtVo.userNo ){
-		str += '		<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg"'
+		str += '		<img class="btnCmtDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg"'
 		str += '				data-n="'+n+'" data-no="'+cmtVo.cmtNo+'">'
 	}
 	

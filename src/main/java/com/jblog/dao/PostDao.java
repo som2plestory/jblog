@@ -1,6 +1,7 @@
 package com.jblog.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,16 @@ public class PostDao {
 		PostVo postVo = sqlSession.selectOne("post.postRead", postNo);
 		
 		return postVo;
+	}
+	
+	
+	/***************************************** 포스트 검색 ******************************************/
+	public List<PostVo> searchPost(Map<String, String> map) {
+		System.out.println("PostDao > searchPost()");
+		
+		List<PostVo> postList = sqlSession.selectList("post.searchPost", map);
+		
+		return postList;
 	}
 	
 }

@@ -6,6 +6,8 @@
 	<resultMap type="com.jblog.vo.PostVo" id="PostVo">
 		<result column="post_no" property="postNo" />
 		<result column="cate_no" property="cateNo" />
+		<result column="id" property="id" />
+		<result column="user_name" property="userName" />
 		<result column="post_title" property="postTitle" />
 		<result column="post_content" property="postContent" />
 		<result column="reg_date" property="regDate" />
@@ -73,6 +75,36 @@
 					TO_CHAR(reg_date,'YY-MM-DD') reg_date
 			FROM post
 			WHERE post_no = #{postNo}
+	</select>
+	
+	
+	<!-- 포스트 검색 -->
+	<select id="searchPost" parameterType="Map" resultMap="PostVo">
+		SELECT  u.id,
+				user_name,
+				post_no,
+				p.cate_no,
+				CASE WHEN SUBSTRB(post_title, 1, 100) = post_title THEN post_title
+					 ELSE CONCAT(SUBSTRB(post_title,1, 100), '...')
+				END	 post_title,
+				CASE WHEN SUBSTRB(post_content,1, 200) = post_content THEN post_content
+					 ELSE CONCAT(SUBSTRB(post_content,1, 210), '...')
+				END	 post_content,
+				TO_CHAR(p.reg_date,'YY-MM-DD') reg_date
+		FROM post p, category c, users u
+		WHERE 
+			<if test="kwdOpt == 'postTitle'">
+				post_title LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="kwdOpt == 'postContent'">
+				post_content LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="kwdOpt == null || kwdOpt == ''">
+				(post_title LIKE '%'||#{keyword}||'%' or post_content LIKE '%'||#{keyword}||'%')
+			</if>
+		AND p.cate_no = c.cate_no
+		AND c.id = u.id
+		ORDER BY post_no DESC
 	</select>
 	
 	

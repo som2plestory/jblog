@@ -105,7 +105,11 @@ div#footer		{ color:#666 }
 
 
 /* 메인-검색결과 리스트 */
-#center-content #resultList {min-height: 500px;}
+#center-content #resultList {min-height: 500px; padding: 20px 100px;}
+#center-content #resultList .searchResult {margin: 10px 0px; border: 2px solid #8BBDFF;}
+#center-content #resultList .searchResult  tr {border: 1px solid #B2CCFF; }
+#center-content #resultList .searchResult  td {padding: 5px 2px;}
+#center-content #resultList .searchResult  .text-center {text-align: center; }
 
 
 /**************************************************************************/
